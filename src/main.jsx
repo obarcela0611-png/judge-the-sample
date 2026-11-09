@@ -4,12 +4,13 @@ import csv from '../data/healthcare_costs.csv?raw';
 import { BAND, costBands, mean, randomSample, systematicSample, stratifiedSample } from './sampling.js';
 import './style.css';
 import Experiments from './Experiments.jsx';
+import Challenge from './Challenge.jsx';
 
 const seed = 20261108;
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 const population = csv.trim().split(/\r?\n/).slice(1).map(line => {
   const cells = line.split(',');
-  return { id: Number(cells[0]), smoker: cells[6], charges: Number(cells[8]) };
+  return { id: Number(cells[0]), ageBand: cells[2], smoker: cells[6], charges: Number(cells[8]) };
 });
 const populationMean = mean(population);
 const percent = (count, size) => size ? count / size * 100 : null;
@@ -130,6 +131,7 @@ function App() {
     </details>
     </>}
     <Experiments population={population} truth={populationMean} />
+    <Challenge population={population} />
   </main>;
 }
 

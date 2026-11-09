@@ -42,3 +42,6 @@ caption { text-align: left; font-weight: 650; padding-top: 14px; }
 .results-scroll { overflow-x: auto; margin-top: 10px; }
 .results-scroll td { white-space: nowrap; }
 @media (max-width: 750px) { .histograms { grid-template-columns: 1fr; } }
+.controls select { display: block; width: 100%; font: inherit; padding: 7px; margin-top: 4px; }
+.challenge-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; margin-bottom: 10px; }
+.challenge-bar .track { grid-column: 1 / -1; height: 12px; }
