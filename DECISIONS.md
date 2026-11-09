@@ -67,9 +67,9 @@ Hypothesis, written before I consult my agent:
 - Date written: November 8, 2026
 - Method I chose to challenge: Simple random sampling
 - The change to the population or its ordering: Keep only records in the 40–49 age band.
-- Why the selection rule would interact with that change:
+- Why the selection rule would interact with that change: I expected restricting the dataset to ages 40–49 to change how much the sample means varied across repeated simple random samples of 100.
 - Evidence I expect across repeated samples: At n = 100, I expect simple random sampling from the 40–49 age band to have a higher RMSE than simple random sampling from the full dataset.
-- Alternative method or correction I will compare, and why: Stratified sampling by smoking status.
+- Alternative method or correction I will compare, and why: I chose stratified sampling by smoking status because it had the lowest RMSE in my Stage 4 run at n = 100. I wanted to see whether it would still have a lower RMSE than simple random sampling within the 40–49 age band.
 - Evidence that would contradict my hypothesis: At n = 100, my hypothesis would be contradicted if simple random sampling from the 40–49 age band had an RMSE equal to or lower than that of simple random sampling from the full dataset.
 
 After I test it:
