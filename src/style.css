@@ -26,3 +26,10 @@ details { margin-top: 18px; }
 summary { cursor: pointer; font-weight: 700; }
 details table { margin-top: 12px; }
 @media (max-width: 750px) { .panels { grid-template-columns: 1fr; } }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 8px; }
+.tabs button { font: inherit; padding: 8px 12px; border: 1px solid #a9bfc1; border-radius: 6px; background: white; color: inherit; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: white; background: #183b45; }
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 480px; }
+.controls input { display: block; width: 100%; font: inherit; padding: 7px; margin-top: 4px; }
+.error { color: #a62a24; display: block; margin-top: 4px; }
+caption { text-align: left; font-weight: 650; padding-top: 14px; }
