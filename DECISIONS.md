@@ -46,10 +46,10 @@ value for modified rows). Keep each result in its own row: never pool estimates.
 | Methods at n = 100 | baseline | Stratified | | | 100 | | | | | | |
 | Sample size | baseline | Simple random | | | 1 | | | | | | |
 | Sample size | baseline | Simple random | | | 10 | | | | | | |
-| Challenge | baseline | (method I challenged) | | | | | | | | | |
-| Challenge | modified | (method I challenged) | | | | | | | | | |
-| Challenge | baseline | (alternative or correction) | | | | | | | | | |
-| Challenge | modified | (alternative or correction) | | | | | | | | | |
+| Challenge | baseline (full dataset) | Simple random | Without replacement | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | −$6.91 | $1,198.87 | $1,198.89 |
+| Challenge | modified (ages 40–49) | Simple random | Without replacement | 20261108 | 100 | 100 | Monte Carlo | $14,399.20 | −$165.99 | $975.34 | $989.36 |
+| Challenge | baseline (full dataset) | Stratified by smoking status | Proportional allocation, population-weighted mean | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | $94.37 | $639.53 | $646.45 |
+| Challenge | modified (ages 40–49) | Stratified by smoking status | Proportional allocation, population-weighted mean | 20261108 | 100 | 100 | Monte Carlo | $14,399.20 | −$25.01 | $546.60 | $547.17 |
 
 The simple random n = 100 row is also the n = 100 sample-size result when the population and
 settings match. If I reran it with different settings, I add a separate row. All four challenge
@@ -74,8 +74,10 @@ Hypothesis, written before I consult my agent:
 
 After I test it:
 
-- Test settings (conditions, methods, alternative method or correction, n, seeds); results are in the table above:
+- Test settings (conditions, methods, alternative method or correction, n, seeds); results are in the table above: Full dataset and ages 40–49, simple random and stratified by smoking status, n = 100, seed 20261108, 100 Monte Carlo repetitions per condition.
 - (c) Challenge interpretation: did the evidence support my hypothesis? Bias versus variability, other explanations, what the alternative or correction showed, and any dated revision (keep the original above):
+
+This run did not support my hypothesis. For simple random sampling at n = 100, RMSE fell from - (c) Challenge interpretation: did the evidence support my hypothesis? Bias versus variability, other explanations, what the alternative or correction showed, and any dated revision (keep the original above):,198.89 for the full dataset to $989.36 when the dataset was restricted to ages 40–49. The estimates varied less across repetitions even though their absolute bias increased. The alternative method of stratified sampling in the 40-49 subset showed an RMSE of $547.17, compared with $989.36 for simple random sampling.
 
 ## 6. AI use
 
