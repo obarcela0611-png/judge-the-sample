@@ -38,17 +38,24 @@ export function randomSample(rows, size, seed) {
 }
 
 export function systematicSample(rows, size, seed) {
+  return systematicDraw(rows, size, randomStream(seed));
+}
+
+function systematicDraw(rows, size, random) {
   const interval = rows.length / size;
-  const random = randomStream(seed)();
+  const value = random();
   const integer = Number.isInteger(interval);
-  const start = integer ? 1 + Math.floor(random * interval) : (1 - random) * interval;
+  const start = integer ? 1 + Math.floor(value * interval) : (1 - value) * interval;
   const sample = Array.from({ length: size }, (_, j) =>
     rows[Math.min(rows.length, Math.ceil(start + j * interval)) - 1]);
   return { sample, interval, start, estimate: mean(sample) };
 }
 
 export function stratifiedSample(rows, size, seed) {
-  const random = randomStream(seed);
+  return stratifiedDraw(rows, size, randomStream(seed));
+}
+
+function stratifiedDraw(rows, size, random) {
   const groups = ['no', 'yes'].map(smoker => {
     const members = rows.filter(row => row.smoker === smoker);
     const weight = members.length / rows.length;
@@ -70,4 +77,47 @@ export function stratifiedSample(rows, size, seed) {
     sample: allocation.flatMap(group => group.sample),
     estimate: allocation.reduce((sum, group) => sum + group.weight * mean(group.sample), 0),
   };
+}
+
+export function summarize(estimates, truth) {
+  const center = estimates.reduce((sum, x) => sum + x, 0) / estimates.length;
+  const rms = reference => Math.sqrt(estimates.reduce((sum, x) =>
+    sum + (x - reference) ** 2, 0) / estimates.length);
+  return { bias: center - truth, sd: rms(center), rmse: rms(truth) };
+}
+
+export function repeatedSampling(rows, method, size, seed, repetitions) {
+  const interval = rows.length / size;
+  const exact = method === 'systematic' && Number.isInteger(interval);
+  const random = randomStream(seed);
+  const estimates = Array.from({ length: exact ? interval : repetitions }, (_, i) => {
+    if (exact) return mean(Array.from({ length: size }, (_, j) => rows[i + j * interval]));
+    if (method === 'random') return mean(draw(rows, size, random));
+    return (method === 'systematic' ? systematicDraw : stratifiedDraw)(rows, size, random).estimate;
+  });
+  return { method, size, seed: exact ? null : seed, exact, estimates, ...summarize(estimates, mean(rows)) };
+}
+
+export function runExperiments(rows, seed, repetitions) {
+  const run = (method, size) => repeatedSampling(rows, method, size, seed, repetitions);
+  const random100 = run('random', 100);
+  return [
+    [random100, run('systematic', 100), run('stratified', 100)],
+    [run('random', 1), run('random', 10), random100],
+  ];
+}
+
+export function alignedBins(results, truth) {
+  const values = results.flatMap(result => result.estimates);
+  const minimum = Math.min(truth, ...values);
+  const maximum = Math.max(truth, ...values);
+  const low = minimum === maximum ? minimum - 1 : minimum;
+  const high = minimum === maximum ? maximum + 1 : maximum;
+  const width = (high - low) / 20;
+  const percentages = results.map(({ estimates }) => {
+    const counts = Array(20).fill(0);
+    for (const value of estimates) counts[Math.min(19, Math.floor((value - low) / width))]++;
+    return counts.map(count => 100 * count / estimates.length);
+  });
+  return { low, high, width, percentages, scale: Math.ceil(Math.max(...percentages.flat()) / 10) * 10 };
 }

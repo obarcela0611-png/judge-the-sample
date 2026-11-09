@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import csv from '../data/healthcare_costs.csv?raw';
 import { BAND, costBands, mean, randomSample, systematicSample, stratifiedSample } from './sampling.js';
 import './style.css';
+import Experiments from './Experiments.jsx';
 
 const seed = 20261108;
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
@@ -128,6 +129,7 @@ function App() {
       </table>
     </details>
     </>}
+    <Experiments population={population} truth={populationMean} />
   </main>;
 }
 
