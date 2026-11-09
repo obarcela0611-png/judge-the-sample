@@ -70,7 +70,7 @@ Hypothesis, written before I consult my agent:
 - Why the selection rule would interact with that change:
 - Evidence I expect across repeated samples: At n = 100, I expect simple random sampling from the 40–49 age band to have a higher RMSE than simple random sampling from the full dataset.
 - Alternative method or correction I will compare, and why: Stratified sampling by smoking status.
-- Evidence that would contradict my hypothesis:
+- Evidence that would contradict my hypothesis: At n = 100, my hypothesis would be contradicted if simple random sampling from the 40–49 age band had an RMSE equal to or lower than that of simple random sampling from the full dataset.
 
 After I test it:
 
