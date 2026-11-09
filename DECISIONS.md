@@ -77,7 +77,7 @@ After I test it:
 - Test settings (conditions, methods, alternative method or correction, n, seeds); results are in the table above: Full dataset and ages 40–49, simple random and stratified by smoking status, n = 100, seed 20261108, 100 Monte Carlo repetitions per condition.
 - (c) Challenge interpretation: did the evidence support my hypothesis? Bias versus variability, other explanations, what the alternative or correction showed, and any dated revision (keep the original above):
 
-This run did not support my hypothesis. For simple random sampling at n = 100, RMSE fell from - (c) Challenge interpretation: did the evidence support my hypothesis? Bias versus variability, other explanations, what the alternative or correction showed, and any dated revision (keep the original above):,198.89 for the full dataset to $989.36 when the dataset was restricted to ages 40–49. The estimates varied less across repetitions even though their absolute bias increased. The alternative method of stratified sampling in the 40-49 subset showed an RMSE of $547.17, compared with $989.36 for simple random sampling.
+This run did not support my hypothesis. For simple random sampling at n = 100, RMSE fell from $1,198.89 for the full dataset to $989.36 when the dataset was restricted to ages 40–49. The estimates varied less across repetitions even though their absolute bias increased. The alternative method of stratified sampling in the 40-49 subset showed an RMSE of $547.17, compared with $989.36 for simple random sampling.
 
 ## 6. AI use
 
