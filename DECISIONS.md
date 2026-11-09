@@ -64,12 +64,12 @@ rows use the same n; a challenge baseline row may repeat a matching stage 4 resu
 
 Hypothesis, written before I consult my agent:
 
-- Date written:
-- Method I chose to challenge:
-- The change to the population or its ordering:
+- Date written: November 8, 2026
+- Method I chose to challenge: Simple random sampling
+- The change to the population or its ordering: Keep only records in the 40–49 age band.
 - Why the selection rule would interact with that change:
-- Evidence I expect across repeated samples:
-- Alternative method or correction I will compare, and why:
+- Evidence I expect across repeated samples: If I set n = 100 for simple random sampling, I believe the sample from the 40-49 age band will have a higher RMSE than when compared to the full dataset.
+- Alternative method or correction I will compare, and why: Stratified sampling by smoking status.
 - Evidence that would contradict my hypothesis:
 
 After I test it:
