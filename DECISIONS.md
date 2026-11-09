@@ -58,7 +58,7 @@ rows use the same n; a challenge baseline row may repeat a matching stage 4 resu
 ## 4. Findings (in my own words, using my own numbers)
 
 - (a) Method comparison: the three sampling methods compared at n = 100 (bias versus variability, and for which population): At n = 100, stratified sampling by smoking status is the most trustworthy method in this run. It had the lowest RMSE at $646.45 and the lowest standard deviation at $639.53. The estimates averaged $94.37 above the true mean because the bias was positive.
-- (b) Sample-size finding: how sample size affects the spread of estimates and the estimation error, and what a larger sample cannot fix: The histogram narrowed around the true mean as the simple random sample size increased. The SD fell from $12,654.01 at n = 1 to $4,173.16 at n = 10 and $1,198.87 at n = 100.
+- (b) Sample-size finding: how sample size affects the spread of estimates and the estimation error, and what a larger sample cannot fix: The histogram narrowed around the true mean as the simple random sample size increased. The SD fell from $12,654.01 at n = 1 to $4,173.16 at n = 10 and $1,198.87 at n = 100. A larger sample can make the estimates more consistent, but it can’t fix bias caused by leaving part of the population out of the sampling frame.
 
 ## 5. Challenge (hypothesis written independently, before consulting my agent)
 
