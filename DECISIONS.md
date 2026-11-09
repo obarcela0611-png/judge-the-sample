@@ -13,22 +13,22 @@ my agent about it, and do not edit it afterwards; add a dated revision below ins
 
 ## 1. Population and target
 
-- Scenario and file:
-- One row means:
-- Number of rows (N):
-- Row order, and what it means in this file:
-- Target column and units:
-- My finite population is (and what it is not):
-- True mean I calculated (and how):
+- Scenario and file: Healthcare costs, `data/healthcare_costs.csv`.
+- One row means: One simulated beneficiary record.
+- Number of rows (N): 1,338.
+- Row order, and what it means in this file: Original CSV order, with no documented chronological meaning.
+- Target column and units: `charges`, in US dollars.
+- My finite population is (and what it is not): The 1,338 simulated beneficiaries in the teaching dataset. This dataset does not represent current healthcare claims.
+- True mean I calculated (and how): $13,270.42. Codex calculated the arithmetic mean across all 1,338 charges. The spreadsheet formula is `=AVERAGE(I2:I1339)`.
 
 ## 2. Design choices
 
 For each stage: the option I chose, why, and what it is meant to help a user learn.
 
-- Stage 2, visualization (include one visual feature meant to reveal a sampling problem):
-- Stage 3, sampling interactions and stratification column:
-- Stage 4, presentation of the method comparison and sample-size experiments:
-- Stage 5, challenge controls and my alternative method or correction:
+- Stage 2, visualization (include one visual feature meant to reveal a sampling problem): Paired population and sample bars in shared $5,000 charge bands, grouped by smoking status. An empty sample bar beside a population bar shows a missed cost band.
+- Stage 3, sampling interactions and stratification column: Method tabs with shared sample size and seed controls. Stratification uses smoking status, which matches the chart groups.
+- Stage 4, presentation of the method comparison and sample-size experiments: Aligned histograms with shared bins and scales within each experiment, a true mean reference line, and a results table.
+- Stage 5, challenge controls and my alternative method or correction: Paired RMSE bars for the full dataset and selected age band. Simple random is the challenged method and smoking-status stratified sampling is the alternative.
 
 ## 3. Results table
 
@@ -41,11 +41,11 @@ value for modified rows). Keep each result in its own row: never pool estimates.
 
 | Experiment | Population or condition | Method | Settings | Seed (or exact) | n | Repetitions or starts | Type | True mean | Bias | SD | RMSE |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Methods at n = 100 | baseline | Simple random | | | 100 | | | | | | |
-| Methods at n = 100 | baseline | Systematic | | | 100 | | | | | | |
-| Methods at n = 100 | baseline | Stratified | | | 100 | | | | | | |
-| Sample size | baseline | Simple random | | | 1 | | | | | | |
-| Sample size | baseline | Simple random | | | 10 | | | | | | |
+| Methods at n = 100 | baseline | Simple random | Without replacement | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | −$6.91 | $1,198.87 | $1,198.89 |
+| Methods at n = 100 | baseline | Systematic | CSV order, fractional interval 13.38 | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | $61.13 | $926.70 | $928.72 |
+| Methods at n = 100 | baseline | Stratified | Smoking status, proportional allocation, population-weighted mean | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | $94.37 | $639.53 | $646.45 |
+| Sample size | baseline | Simple random | Without replacement | 20261108 | 1 | 100 | Monte Carlo | $13,270.42 | −$787.65 | $12,654.01 | $12,678.50 |
+| Sample size | baseline | Simple random | Without replacement | 20261108 | 10 | 100 | Monte Carlo | $13,270.42 | −$374.53 | $4,173.16 | $4,189.93 |
 | Challenge | baseline (full dataset) | Simple random | Without replacement | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | −$6.91 | $1,198.87 | $1,198.89 |
 | Challenge | modified (ages 40–49) | Simple random | Without replacement | 20261108 | 100 | 100 | Monte Carlo | $14,399.20 | −$165.99 | $975.34 | $989.36 |
 | Challenge | baseline (full dataset) | Stratified by smoking status | Proportional allocation, population-weighted mean | 20261108 | 100 | 100 | Monte Carlo | $13,270.42 | $94.37 | $639.53 | $646.45 |
@@ -57,8 +57,8 @@ rows use the same n; a challenge baseline row may repeat a matching stage 4 resu
 
 ## 4. Findings (in my own words, using my own numbers)
 
-- (a) Method comparison: the three sampling methods compared at n = 100 (bias versus variability, and for which population):
-- (b) Sample-size finding: how sample size affects the spread of estimates and the estimation error, and what a larger sample cannot fix:
+- (a) Method comparison: the three sampling methods compared at n = 100 (bias versus variability, and for which population): At n = 100, stratified sampling by smoking status is the most trustworthy method in this run. It had the lowest RMSE at $646.45 and the lowest standard deviation at $639.53. The estimates averaged $94.37 above the true mean because the bias was positive.
+- (b) Sample-size finding: how sample size affects the spread of estimates and the estimation error, and what a larger sample cannot fix: The histogram narrowed around the true mean as the simple random sample size increased. The SD fell from $12,654.01 at n = 1 to $4,173.16 at n = 10 and $1,198.87 at n = 100.
 
 ## 5. Challenge (hypothesis written independently, before consulting my agent)
 
@@ -81,6 +81,6 @@ This run did not support my hypothesis. For simple random sampling at n = 100, R
 
 ## 6. AI use
 
-- Tools used:
-- What I asked my agent to do, and what I checked myself:
-- Automated checks my agent reported (I did not let it interpret my results):
+- Tools used: OpenAI Codex and its GitHub connection.
+- What I asked my agent to do, and what I checked myself: Codex helped plan and build the app, publish it, calculate the population mean, format the results, and clarify my hypothesis wording. I selected the designs, ran the Stage 4 and 5 comparisons, and shared the observed results and my interpretation.
+- Automated checks my agent reported: Codex reported checks for reproducible samples, distinct rows, systematic starts, stratified allocations and weights, exact enumeration, histogram bins, and the bias, SD, and RMSE calculations. It also checked input validation and phone-width layouts.
